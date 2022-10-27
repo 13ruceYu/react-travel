@@ -1,24 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from './assets/logo.svg';
+import styles from './App.module.css';
+import { Layout, Typography, Input } from 'antd'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles['App']}>
+      <Layout.Header>
+        <img src={logo} alt="logo" />
+        <Typography.Title level={3}>摸鱼网</Typography.Title>
+        <Input.Search placeholder='touch fish'></Input.Search>
+      </Layout.Header>
     </div>
   );
 }
