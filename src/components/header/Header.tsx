@@ -3,11 +3,11 @@ import logo from "../../assets/logo.svg";
 import { Input, Menu, Button, Dropdown, Typography, Layout } from 'antd'
 import { GlobalOutlined } from "@ant-design/icons";
 import styles from './Header.module.css'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 export const Header: React.FC = () => {
-  const history = useHistory()
+  const history = useNavigate()
   return (
     <div>
       <div className={styles["top-header"]}>
@@ -28,14 +28,14 @@ export const Header: React.FC = () => {
             语言
           </Dropdown.Button>
           <Button.Group className={styles["button-group"]}>
-            <Button onClick={() => history.push('register')}>注册</Button>
-            <Button onClick={() => history.push('signIn')}>登陆</Button>
+            <Button onClick={() => history('register')}>注册</Button>
+            <Button onClick={() => history('signIn')}>登陆</Button>
           </Button.Group>
         </div>
       </div>
       <div className={styles["app-header"]}>
         <Layout.Header className={styles["main-header"]}>
-          <span onClick={() => history.push('/')}>
+          <span onClick={() => history('/')}>
             <img src={logo} alt="logo" className={styles["App-logo"]} />
             <Typography.Title level={3} className={styles.title}>
               慕课旅游网
