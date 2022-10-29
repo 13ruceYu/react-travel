@@ -4,8 +4,37 @@ import { Input, Menu, Button, Dropdown, Typography, Layout } from 'antd'
 import { GlobalOutlined } from "@ant-design/icons";
 import styles from './Header.module.css'
 import { RouteComponentProps, withRouter } from '../../helpers/withRouter'
+import store from '../../redux/store'
+import { LanguageState } from '../../redux/languageReducer'
 
-class HeaderComponent extends React.Component<RouteComponentProps> {
+interface State extends LanguageState {
+
+}
+
+class HeaderComponent extends React.Component<RouteComponentProps, State> {
+  constructor(props) {
+    super(props)
+    const storeState = store.getState()
+    this.state = {
+      language: storeState.language,
+      languageList: storeState.languageList
+    }
+    store.subscribe(() => {
+      const storeState = store.getState();
+      this.setState({
+        language: storeState.language,
+      })
+    })
+  }
+
+  menuClickHandler(e) {
+    const action = {
+      type: 'change_language',
+      payload: e.key
+    }
+    store.dispatch(action)
+  }
+
   render(): React.ReactNode {
     const { navigate } = this.props
     return (
@@ -17,15 +46,13 @@ class HeaderComponent extends React.Component<RouteComponentProps> {
               style={{ marginLeft: 15 }}
               overlay={
                 <Menu
-                  items={[
-                    { key: "1", label: "中文" },
-                    { key: "2", label: "English" },
-                  ]}
+                  onClick={this.menuClickHandler}
+                  items={this.state.languageList.map(l => ({ key: l.code, label: l.name }))}
                 />
               }
               icon={<GlobalOutlined />}
             >
-              语言
+              {this.state.language === 'zh' ? '中文' : 'English'}
             </Dropdown.Button>
             <Button.Group className={styles["button-group"]}>
               <Button onClick={() => navigate('register')}>注册</Button>
