@@ -66,8 +66,7 @@
 }
 
 .main-menu {
-  padding-left: 6% !important;
-  padding-right: 6% !important;
+  justify-content: center;
   background-color: #1976D2 !important;
   color: #f5f5f5 !important;
 }
