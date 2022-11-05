@@ -1,5 +1,7 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import languageReducer from './language/languageReducer'
+import { actionLog } from './middlewares/actionLog';
 import recommendProductsReducer from './recommendProducts/recommendProductsReducer'
 
 const rootReducer = combineReducers({
@@ -7,7 +9,7 @@ const rootReducer = combineReducers({
   recommendProducts: recommendProductsReducer
 })
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer, applyMiddleware(thunk, actionLog))
 
 export type RootState = ReturnType<typeof store.getState>
 
