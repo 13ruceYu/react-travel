@@ -1,10 +1,22 @@
 import React from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
 import styles from './RegisterForm.module.css'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 export const RegisterForm: React.FC = () => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+  const navigate = useNavigate()
+  const onFinish = async (values: any) => {
+    try {
+      await axios.post('http://123.56.149.216:8080/auth/register', {
+        email: values.username,
+        password: values.password,
+        confirmPassword: values.confirmPassword,
+      })
+      navigate('/signin')
+    } catch (error) {
+      alert('注册失败！')
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -42,7 +54,7 @@ export const RegisterForm: React.FC = () => {
       </Form.Item>
       <Form.Item
         label="Password Confirm"
-        name="passwordConfirm"
+        name="confirmPassword"
         hasFeedback
         rules={[
           { required: true, message: 'Please input your password!' },
