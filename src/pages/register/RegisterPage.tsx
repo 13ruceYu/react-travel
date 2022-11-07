@@ -1,10 +1,10 @@
 import React from "react";
 import { UserLayout } from "../../layouts/userLayout";
 
-export const SignInPage: React.FC = (props) => {
+export const RegisterPage: React.FC = () => {
   return (
     <UserLayout>
-      <h1>登录页面</h1>
+      <h1>注册页面</h1>
     </UserLayout>
   );
 };

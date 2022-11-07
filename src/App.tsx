@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { HomePage, DetailPage, SignInPage, SearchPage } from './pages'
+import { HomePage, DetailPage, SignInPage, SearchPage, RegisterPage } from './pages'
 import styles from "./App.module.css";
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage></HomePage>} />
           <Route path={'/signIn'} element={<SignInPage></SignInPage>}></Route>
+          <Route path={'/register'} element={<RegisterPage></RegisterPage>}></Route>
           <Route path={'/detail/:touristRouteId'} element={<DetailPage></DetailPage>}></Route>
           <Route path={'/search'}>
             <Route index element={<SearchPage></SearchPage>} />
