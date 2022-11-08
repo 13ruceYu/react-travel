@@ -23,7 +23,6 @@ export const SearchPage: React.FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-
     dispatch(searchProduct({ nextPage: 1, pageSize: 10, keywords: keywords || '' }))
   }, [dispatch, keywords, location])
 
