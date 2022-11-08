@@ -5,8 +5,10 @@ import App from './App';
 import 'antd/dist/antd.min.css'
 import './i18n/configs'
 import { Provider } from 'react-redux'
-import store from './redux/store'
+import rootStore from './redux/store'
 import axios from "axios";
+import { PersistGate } from 'redux-persist/integration/react'
+
 axios.defaults.headers['x-icode'] = '5E312FC29D52FB2B';
 
 const root = ReactDOM.createRoot(
@@ -14,8 +16,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
+    <Provider store={rootStore.store}>
+      <PersistGate persistor={rootStore.persistedStore}>
+        <App />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );
