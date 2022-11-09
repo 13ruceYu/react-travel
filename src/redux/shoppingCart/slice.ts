@@ -24,7 +24,7 @@ export const getShoppingCart = createAsyncThunk(
         }
       }
     );
-    return data.shoppingCart.items
+    return data.shoppingCartItems
   }
 )
 

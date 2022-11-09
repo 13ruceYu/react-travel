@@ -4,8 +4,8 @@ import { Input, Menu, Button, Dropdown, Typography, Layout } from 'antd'
 import { GlobalOutlined } from "@ant-design/icons";
 import styles from './Header.module.css'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from '../../redux/hooks'
-import { useDispatch } from 'react-redux'
+import { useSelector, useAppDispatch } from '../../redux/hooks'
+// import { useDispatch } from 'react-redux'
 import { addLanguageActionCreator, changeLanguageActionCreator } from '../../redux/language/languageActions'
 import { useTranslation } from 'react-i18next'
 import jwt_decode, { JwtPayload as DefaultJwtPayload } from 'jwt-decode'
@@ -17,12 +17,18 @@ interface JwtPayload extends DefaultJwtPayload {
 
 export const Header: React.FC = () => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const { t } = useTranslation()
+
+  const jwt = useSelector(s => s.user.token)
+
   const language = useSelector(state => state.language.language)
   const languageList = useSelector(state => state.language.languageList)
-  const dispatch = useDispatch()
-  const { t } = useTranslation()
-  const jwt = useSelector(s => s.user.token)
+
   const [username, setUsername] = useState('')
+
+  const shoppingCartItems = useSelector(s => s.shoppingCart.items)
+  const shoppingCartLoading = useSelector(s => s.shoppingCart.loading)
 
   useEffect(() => {
     if (jwt) {
@@ -75,7 +81,7 @@ export const Header: React.FC = () => {
                   {t("header.welcome")}
                   <Typography.Text strong>{username}</Typography.Text>
                 </span>
-                <Button onClick={() => navigate('/shoppingCart')}>{t("header.shoppingCart")}</Button>
+                <Button onClick={() => navigate('/shoppingCart')} loading={shoppingCartLoading}>{t("header.shoppingCart")}({shoppingCartItems.length})</Button>
                 <Button onClick={onLogout}>{t("header.signOut")}</Button>
               </Button.Group>
               :
